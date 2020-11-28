@@ -4,7 +4,7 @@ import logging
 import os
 
 
-def week01():
+def weeklog():
     # 获取当期日期
     now = datetime.date.today()
 
@@ -25,5 +25,5 @@ def week01():
 
 if __name__ == '__main__':
     while True:
-        week01()
+        weeklog()
         time.sleep(2)
