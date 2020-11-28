@@ -9,8 +9,8 @@ def week01():
     now = datetime.date.today()
 
     # 日志绝对路径
-    logPath = 'C:\\JQL\\study\\log\\python-{}\\week01.log'.format(now)
-    #basePath = '/var/log/python-{}/week01.log'.format(datetime.date.today())
+    logPath = '/var/log/python-{}/week01.log'.format(now)
+
     # 日志所在目录
     logDir = os.path.dirname(logPath)
     if not os.path.exists(logDir):
@@ -27,8 +27,3 @@ if __name__ == '__main__':
     while True:
         week01()
         time.sleep(2)
-
-
-
-
-
