@@ -9,7 +9,7 @@ def weeklog():
     now = datetime.date.today()
 
     # 日志绝对路径
-    logPath = '/var/log/python-{}/week01.log'.format(now)
+    logPath = '/var/log/python-{0}/week01.log'.format(now)
 
     # 日志所在目录
     logDir = os.path.dirname(logPath)
