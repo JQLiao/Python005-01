@@ -52,6 +52,6 @@
 
     ```
     INNER JOIN  结果： table1_table2
-    LEFT JOIN   结果： table1 ，table1_table2
+    LEFT  JOIN  结果： table1 ，table1_table2
     RIGHT JOIN  结果： table2 ，table1_table2
     ```
