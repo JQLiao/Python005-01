@@ -1,6 +1,6 @@
 import pymysql
 from dbconfig import read_db_conf
-from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,desc,func,Enum,Date,func
+from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,desc,func,Enum,Date
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy import DateTime 
@@ -47,12 +47,10 @@ Base.metadata.create_all(engine)
 SessionClass = sessionmaker(bind=engine)
 session = SessionClass()
 
-person_demo1=Person(user_name="danny", user_age=20, user_bir="2000-10-20", user_sex="男", user_edu="本科")
-person_demo2=Person(user_name="elsa",  user_age=30, user_bir="1990-04-11", user_sex="男", user_edu="大专")
-person_demo3=Person(user_name="fanny",  user_age=25, user_bir="1995-12-11", user_sex="女", user_edu="硕士")
-session.add(person_demo1)
-session.add(person_demo2)
-session.add(person_demo3)
+person_demo=[Person(user_name="danny", user_age=20, user_bir="2000-10-20", user_sex="男", user_edu="本科"),\
+             Person(user_name="elsa",  user_age=30, user_bir="1990-04-11", user_sex="男", user_edu="大专"),\
+             Person(user_name="fanny",  user_age=25, user_bir="1995-12-11", user_sex="女", user_edu="硕士")]
+session.add_all(person_demo)
 session.commit()
 
 # 查询结果
