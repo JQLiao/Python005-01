@@ -51,7 +51,6 @@ class AccountFlow(Base):
         result = '{"from_id":%s, "to_id":%s, "deal_money":%s}' % (self.user_id, self.user_asset, self.deal_money)
         return  result
 
-
 dburl = "mysql+pymysql://%s:%s@%s:3306/%s?charset=utf8mb4" %(user,password,host,database)
 engine = create_engine(dburl, echo=True, encoding="utf-8")
 Base.metadata.create_all(engine)
@@ -65,15 +64,19 @@ account_obj = [Account(user_id=1,user_asset=150), Account(user_id=2,user_asset=3
 session.add_all(account_obj)
 session.commit()
 
-with engine.begin():
+with engine.begin() as conn:
     zhangsan_count = session.query(Account).outerjoin(User, Account.user_id==User.id).filter(User.user_name == "张三").first()
-    lisi_count = session.query(Account).outerjoin(User, Account.user_id==User.id).filter(User.user_name == "李四").first()
-   
-    
+    lisi_count = session.query(Account).outerjoin(User, Account.user_id==User.id).filter(User.user_name == "李四").first(
+  
     if float(zhangsan_count.user_asset) >= 100:
-        zhangsan_count.user_asset -= 100
-        zhangsan_count.user_asset += 100
-        session.add(AccountFlow(from_id=1,to_id=2,deal_money=100))
-        session.commit()
+        #张三账户减100
+        conn.execute("UPDATE account SET user_asset=%s WHERE user_id=%s" %(float(zhangsan_count.user_asset)-100, int(zhangsan_count.user_id)))
+        #李四账户增100
+        conn.execute("UPDATE account SET user_asset=%s WHERE user_id=%s" %(float(lisi_count.user_asset)+100, int(lisi_count.user_id)))
+        
+        #审计表记录交易
+        sql = "INSERT INTO account_flow(from_id, to_id, deal_money, created_time, update_time) VALUES(%s,%s,%s,%s,%s)" 
+        value = (int(zhangsan_count.user_id),int(lisi_count.user_id),300,str(datetime.now(),str(datetime.now()))
+        conn.execute(sql,value)
     else:
         print("余额不足，交易失败")
