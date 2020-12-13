@@ -4,7 +4,6 @@ from sqlalchemy import  create_engine,Table,Column,Integer,String,MetaData,Forei
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
-import json
 
 # 读取数据库配置
 dbserver = read_db_conf()

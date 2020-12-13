@@ -1,7 +1,4 @@
 from configparser import ConfigParser
-import os
-confpath = "C:\\JQL\\geektime\\Python005-01\\week03"
-os.chdir(confpath)
 
 def read_db_conf(filename='config.ini', section='mysql'):
     parser = ConfigParser()
